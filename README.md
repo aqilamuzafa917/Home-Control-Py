@@ -38,7 +38,7 @@ Built with Python 3.11 and CustomTkinter, featuring a clean macOS-style dark UI,
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/home-control-py.git
+   git clone https://github.com/aqilamuzafa917/Home-Control-Py.git
    cd home-control-py
    ```
 
