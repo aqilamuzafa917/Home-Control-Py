@@ -115,13 +115,6 @@ The repo ships with `build.py`, which wraps the PyInstaller command used in prod
 ---
 
 ## 📜 Credits
-- UI: [CustomTkinter](https://github.com/TomSchimansky/CustomTkinter)
-- Xiaomi control: [python-miio](https://github.com/rytilahti/python-miio)
-- Xiaomi login flow: [micloud](https://github.com/Squachen/micloud)
-
----
-
-## 🔗 Sources
 - WiZ UDP command insights: [WiZ UDP Code Generator](https://seanmcnally.net/wiz-config.html)
 - Xiaomi cloud authentication reference: [PiotrMachowski/Xiaomi-cloud-tokens-extractor](https://github.com/PiotrMachowski/Xiaomi-cloud-tokens-extractor)
 - MIoT specs & Home Assistant bridge: [al-one/hass-xiaomi-miot](https://github.com/al-one/hass-xiaomi-miot)
