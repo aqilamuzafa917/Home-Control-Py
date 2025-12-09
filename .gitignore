@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.env
+.venv
+build/
+dist/
+*.spec
+
+# macOS
+.DS_Store
+
+# IDEs
+.idea/
+.vscode/
+
+# Local Configs
+*.log
+home_control_go2rtc.yaml
+go2rtc.yaml
+
+# Binaries (users should download their own or use releases)
+go2rtc
+go2rtc.exe

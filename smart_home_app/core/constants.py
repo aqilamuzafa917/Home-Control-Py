@@ -31,6 +31,9 @@ PROP_FILTER = {"siid": 4, "piid": 1}
 
 # --- Config ---
 CONFIG_FILE = Path.home() / ".xiaomi_config.json"
+XIAOMI_CONFIG = CONFIG_FILE
+ICSEE_CONFIG = Path.home() / ".home_control_config.json"
+LOG_FILE = Path.home() / ".home_control.log"
 
 # --- UI ---
 ICON_WIDTH = 40
@@ -39,8 +42,8 @@ DEFAULT_DIMMING = 100
 
 # --- Misc ---
 APP_TITLE = "Home Control Py"
-DEFAULT_SIZE = "450x780"
-MIN_SIZE = (400, 700)
+DEFAULT_SIZE = (1024, 600)
+MIN_SIZE = (800, 500)
 DEFAULT_COUNTRY = "sg"
 
 __all__ = [
@@ -70,5 +73,8 @@ __all__ = [
     "DEFAULT_TEMP",
     "DEFAULT_DIMMING",
     "DEFAULT_COUNTRY",
+    "XIAOMI_CONFIG",
+    "ICSEE_CONFIG",
+    "LOG_FILE",
 ]
 

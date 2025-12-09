@@ -26,7 +26,7 @@ except ModuleNotFoundError:  # pragma: no cover
     except ImportError:
         ARC4 = None  # type: ignore
 
-from .constants import DEFAULT_COUNTRY
+from ..core.constants import DEFAULT_COUNTRY
 
 
 def get_ssl_cert_path() -> str:

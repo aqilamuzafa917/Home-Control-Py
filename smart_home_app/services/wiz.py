@@ -6,7 +6,7 @@ import json
 import socket
 from typing import List, Optional
 
-from .constants import WIZ_PORT
+from ..core.constants import WIZ_PORT
 
 
 class WiZLightClient:

@@ -1,128 +1,90 @@
-# Home Control Py 🏠
+# Smart Home Control Dashboard (Python/PyQt6)
 
-A modern, native desktop dashboard to control **WiZ Smart Lights** and **Xiaomi Air Purifiers** directly from your Mac or PC.  
-Built with Python 3.11 and CustomTkinter, featuring a clean macOS-style dark UI, local network control for instant response, and automated token extraction.
+A modern, "Apple-style" smart home dashboard built with Python and Qt (PyQt6).  
+Designed for **macOS, Windows, and Linux**, it provides a centralized control capability for:
 
-> **Note:** This is a personal hobby project. At the moment it supports WiZ lights and the Xiaomi Smart Air Purifier 4 Compact; additional devices may be added over time.
+*   **WiZ Smart Lights** (Control, Sleep Mode, Circadian Rhythm)
+*   **Xiaomi Air Purifiers** (miot protocol)
+*   **IP Security Cameras** (RTSP via go2rtc low-latency bridge)
 
-![Python](https://img.shields.io/badge/Python-3.11-blue.svg)
-![Platform](https://img.shields.io/badge/Platform-macOS%20%7C%20Windows-lightgrey.svg)
-![License](https://img.shields.io/badge/License-MIT-green.svg)
+## Features
 
----
+*   **📷 Low-Latency Video**: Uses `go2rtc` interactions for <500ms latency video feeds (RTSP -> WebRTC/MSE).
+*   **💡 Advanced Lighting Control**: Group control for WiZ lights, Kelvin temperature adjustment, and custom "Sleep Mode" (Night light).
+*   **💨 Air Quality Monitor**: Visualization of PM2.5 levels and control of Xiaomi Air Purifiers.
+*   **🖥️ Dashboard UI**: Fluid animations, dark mode, responsive grid layouts, and unified "Safari-like" address bar status.
 
-## ✨ Features
+## Prerequisites
 
-### 💡 WiZ Lights
-- **Auto-discovery** via UDP broadcast.
-- **Zero setup** (no WiZ cloud login required).
-- **Controls** for power, brightness, and color temperature (Kelvin).
-- **Stateless sockets** each request to keep responses fast and reliable.
+*   **Python 3.10+**
+*   **Operating System:**
+    *   **macOS** (Tested on Sonoma/Sequoia)
+    *   **Windows** (10/11)
+    *   **Linux** (Ubuntu/Debian)
+*   **Dependencies:**
+    *   **FFmpeg**: Required for video transcoding. Must be installed and available in system PATH.
+        *   macOS: `brew install ffmpeg`
+        *   Windows: Install and add to PATH.
+        *   Linux: `sudo apt install ffmpeg`
+*   **Usage of `go2rtc`**: This app relies on the `go2rtc` binary for video streaming.
 
-### 💨 Xiaomi Air Purifier (Smart Air Purifier 4 Compact)
-- **QR-code login flow** that retrieves device token + IP automatically.
-- **Local MIoT commands** (SIID/PIID) for direct hardware control.
-- **Live dashboard** with PM2.5 (AQI), filter life, and mode indicators.
-- **Manual slider** for fan speed (levels 1–14) when in Manual mode.
-- **Credential persistence** so you don’t have to re-login every time.
+## Installation
 
----
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/yourusername/home-control-py.git
+    cd home-control-py
+    ```
 
-## 🛠️ Prerequisites
-- Python **3.11** (strongly recommended – matches dev/runtime environment).
-- Your computer must share the same Wi‑Fi/LAN as the target devices.
+2.  **Install Dependencies:**
+    ```bash
+    pip install -r requirements.txt
+    ```
 
----
+3.  **Build the App:**
+    The build script will **automatically download** the correct `go2rtc` binary for your OS.
+    ```bash
+    python3 build.py
+    ```
 
-## 📦 Installation
+    The app will be compiled to the `dist/` folder.
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/yourusername/home-control-py.git
-   cd home-control-py
-   ```
+## Configuration
 
-2. **Install dependencies**
-   ```bash
-   python3.11 -m pip install -r requirements.txt
-   ```
+The application automatically creates a configuration file in your home directory: `~/.home_control_config.json`.
+You can configure devices via the UI **Settings** page:
 
-3. **Run the app**
-   ```bash
-   python3.11 smart_home.py
-   ```
+*   **Cameras**: Add RTSP links or XMeye credentials.
+*   **Xiaomi**: Enter IP and Token for Air Purifiers.
+*   **WiZ**: Auto-discovery via UDP broadcast.
 
----
+## Running the App
 
-## 🏗️ Building (macOS / Windows)
+```bash
+python3 -u smart_home.py
+```
 
-The repo ships with `build.py`, which wraps the PyInstaller command used in production.
+## Features in Detail
 
-1. **Install PyInstaller (if not already)**
-   ```bash
-   python3.11 -m pip install pyinstaller
-   ```
+### 📹 Camera Tab
+*   **Auto-reconnect**: Handles connection drops robustly.
+*   **Progress Bar**: Safari-style loading bar in the top toolbar to indicate connection status.
+*   **Fullscreen Mode**: Dedicated overlay viewer.
+*   **Snapshots**: "Zoom" view support.
 
-2. **Run the build helper**
-   ```bash
-   python3.11 build.py
-   ```
+### 💡 WiZ Lights Tab
+*   **Auto-Discovery**: Scans network for lights.
+*   **Sleep Mode**: One-click "Night Light" setting (Scene 14, ultra-low dimming).
+*   **Group Control**: Toggle all lights at once.
 
-3. **Grab the binary**
-   - Output lives in `dist/`
-   - macOS: `dist/Home Control Py.app`
-   - Windows: `dist/Home Control Py.exe`
+### 💨 Air Purifier Tab
+*   **Ring Visualization**: Color-coded PM2.5 index.
+*   **Mode Control**: Auto/Sleep/Favorite.
 
-> The helper passes the following options:  
-> `--noconsole --windowed --onefile --clean --name="Home Control Py"`  
-> plus `--collect-all` for `customtkinter`, `miio`, `micloud`, `certifi`, and `requests`.
+## Development
 
----
-
-## 📖 Usage Guide
-
-### WiZ Lights Tab
-1. Launch the app; discovery runs automatically.
-2. If nothing appears, click **“⟳ Scan & Sync”**.
-3. Use the sliders to adjust temperature and brightness, or tap the power button.
-
-### Xiaomi Purifier Tab
-1. Click **“Generate QR Code”** and scan it using the Mi Home mobile app (Scanner icon).  
-   You can also hit **“Open in Browser”** to authenticate via web.
-2. Once authenticated, the app fetches your local IP/token (defaults to the **Singapore (`sg`) server**).
-3. Switch to **Manual** mode to enable the custom speed slider (levels 1–14).
-4. Logout removes stored credentials if you need to re-authenticate.
-
----
-
-## 🔧 Troubleshooting
-
-**App works in terminal but hangs after packaging**  
-- Almost always an SSL bundle issue. The included `get_ssl_cert_path()` fix and the PyInstaller flags (especially `--collect-all certifi`) solve it.
-
-**Xiaomi device not found**  
-- Ensure the purifier is online and tied to the same server region as configured (`sg` by default; change in `constants.py` if needed).
-
-**WiZ lights do not respond**  
-- Verify “Local Communication” is enabled in the WiZ mobile app settings.
-
----
-
-## 📝 Configuration
-- Xiaomi credentials are stored at `~/.xiaomi_config.json`.
-- Use the in-app **Logout** button or delete the file manually to reset.
-
----
-
-## 📜 Credits
-- UI: [CustomTkinter](https://github.com/TomSchimansky/CustomTkinter)
-- Xiaomi control: [python-miio](https://github.com/rytilahti/python-miio)
-- Xiaomi login flow: [micloud](https://github.com/Squachen/micloud)
-
----
-
-## 🔗 Sources
-- WiZ UDP command insights: [WiZ UDP Code Generator](https://seanmcnally.net/wiz-config.html)
-- Xiaomi cloud authentication reference: [PiotrMachowski/Xiaomi-cloud-tokens-extractor](https://github.com/PiotrMachowski/Xiaomi-cloud-tokens-extractor)
-- MIoT specs & Home Assistant bridge: [al-one/hass-xiaomi-miot](https://github.com/al-one/hass-xiaomi-miot)
-
+Built with:
+*   **PyQt6**: UI Framework
+*   **OpenCV**: Frame processing
+*   **go2rtc**: RTSP handling
+*   **python-miio**: Xiaomi communication
